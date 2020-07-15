@@ -17,6 +17,8 @@ let data = fs
 // const urls = ["mateusz-wojcik.pl", "prawos.pl"];
 // const urls = ["mateusz-wojcik.pl"];
 
+const blackList = ["seo", "kancelaria", "prawnik", "prawny", "adwords"];
+
 const app = async () => {
   // Write headers
   functions.createFile();
@@ -62,7 +64,9 @@ const app = async () => {
           }
         }
       });
-    functions.appendToCSV(webpage);
+    if (webpage.info === "OK") {
+      functions.appendToCSV(webpage);
+    }
     console.log(webpage);
   }
   // Send CSV with data on email
