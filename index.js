@@ -4,6 +4,7 @@ const mail = require("./functions/mail");
 const fs = require("fs");
 const path = require("path");
 const csv = require("csv-parser");
+const ci = require("case-insensitive");
 
 function file(filename) {
   return path.join(__dirname, "files", filename);
@@ -64,9 +65,16 @@ const app = async () => {
           }
         }
       });
+
     if (webpage.info === "OK") {
       functions.appendToCSV(webpage);
     }
+    blackList.forEach(item => {
+      if (ci(webpage.metaTitle).indexOf(item) >= 0) {
+        console.log(`Słowo wykluczajce: ${item} w title`);
+      }
+    });
+
     console.log(webpage);
   }
   // Send CSV with data on email
