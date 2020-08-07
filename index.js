@@ -18,7 +18,68 @@ let data = fs
 // const urls = ["mateusz-wojcik.pl", "prawos.pl"];
 // const urls = ["mateusz-wojcik.pl"];
 
-const blackList = ["seo", "kancelaria", "prawnik", "prawny", "adwords"];
+const blackList = [
+  "dom dziecka",
+  "parafia",
+  "seo",
+  "kancelaria",
+  "prawnik",
+  "prawny",
+  "Lifitng",
+  "Botoks",
+  "Botox",
+  "Mezoterapia",
+  "Sex",
+  "Erotyka",
+  "Erotyczna",
+  "Porno",
+  "Estetyczna",
+  "Klinika",
+  "Zabiegi",
+  "szpital",
+  "doktor",
+  "uczelnia",
+  "wyższa szkoła",
+  "komornik",
+  "lekarz",
+  "uczelnia",
+  "Przychodnia",
+  "Medycyna",
+  "Medyk",
+  "Medycy",
+  "medycz",
+  "Konwersje",
+  "Adwokat",
+  "Mecenas",
+  "Hospitalizacja",
+  "Widoczność",
+  "adwords",
+  "digital marketing",
+  "linki sponsorowane",
+  "Social media",
+  "blog",
+  "sklepy internetowe",
+  "interaktywna",
+  "facebook",
+  "marketing w wyszukiwarkach",
+  "pozycjonowanie",
+  "sem",
+  "ads",
+  "projektowanie stron internetowych",
+  "adwords",
+  "stron www",
+  "tworzenie stron internetowych",
+  "pozycjonowanie stron internetowych",
+  "tworzenie strony internetowej",
+  "pozycjonowanie",
+  "projektowanie stron www",
+  "ads fb",
+  "strony www",
+  "robienie stron www",
+  "pozycjonować",
+  "marketing w wyszukiwarkach internetowych",
+  "strony internetowe"
+];
 
 const app = async () => {
   // Write headers
@@ -66,14 +127,15 @@ const app = async () => {
         }
       });
 
-    if (webpage.info === "OK") {
-      functions.appendToCSV(webpage);
-    }
     blackList.forEach(item => {
       if (ci(webpage.metaTitle).indexOf(item) >= 0) {
         console.log(`Słowo wykluczajce: ${item} w title`);
+        return (webpage.info = "black-list");
       }
     });
+    if (webpage.info === "OK") {
+      functions.appendToCSV(webpage);
+    }
 
     console.log(webpage);
   }
